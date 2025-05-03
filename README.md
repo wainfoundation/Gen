@@ -176,4 +176,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-Built with 💜 by \[mrwain organization]
+Built with 💜 by \ Mrwain Organization
