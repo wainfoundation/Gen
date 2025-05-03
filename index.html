@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gen is your AI-powered personal assistant, transforming unproductive habits into a productive lifestyle with task management, habit tracking, and mood-based suggestions." />
+  <meta name="keywords" content="Gen, personal assistant, productivity, AI, habit tracking, task management, motivation" />
+  <meta name="author" content="Gen Team" />
+  <title>Gen – Your AI Personal Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #000000;
+      color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background: #000000;
+      padding: 20px 20px;
+      text-align: center;
+      border-bottom: 1px solid #7c4dff33;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(124, 77, 255, 0.2);
+    }
+
+    header h1 {
+      color: #7c4dff;
+      font-size: 2.8em;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    header p {
+      color: #b0b0b0;
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+
+    nav {
+      margin-top: 15px;
+    }
+
+    nav a {
+      color: #b47aff;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: 600;
+      font-size: 1.1em;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      transform: scale(1.1);
+    }
+
+    /* Main */
+    main {
+      padding: 80px 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      animation: fadeIn 1.2s ease-in;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle, rgba(124, 77, 255, 0.1), transparent);
+      z-index: -1;
+    }
+
+    .hero h2 {
+      font-size: 3.5em;
+      color: #7c4dff;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(124, 77, 255, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      color: #d0d0d0;
+      margin-bottom: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .cta-buttons a {
+      background: linear-gradient(45deg, #7c4dff, #b47aff);
+      color: #ffffff;
+      padding: 18px 36px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2em;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 15px rgba(124, 77, 255, 0.4);
+    }
+
+    .cta-buttons a:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(124, 77, 255, 0.6);
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+      max-width: 1000px;
+      margin: 80px auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .how-it-works h2 {
+      font-size: 2.8em;
+      color: #7c4dff;
+      margin-bottom: 40px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .step {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid #7c4dff22;
+      transition: transform 0.3s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-10px);
+    }
+
+    .step h3 {
+      font-size: 1.6em;
+      color: #b47aff;
+      margin-bottom: 15px;
+    }
+
+    .step p {
+      color: #cccccc;
+      font-size: 1em;
+    }
+
+    /* Features Section */
+    .features {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .features h2 {
+      font-size: 2.8em;
+      color: #7c4dff;
+      margin-bottom: 40px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid #7c4dff22;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(124, 77, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(124, 77, 255, 0.3);
+    }
+
+    .feature-card h3 {
+      font-size: 1.7em;
+      color: #b47aff;
+      margin-bottom: 15px;
+    }
+
+    .feature-card p {
+      color: #cccccc;
+      font-size: 1em;
+    }
+
+    /* Progress Tracker Visualization */
+    .progress-tracker {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 20px;
+      background: #1a1a1a;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 20px auto;
+    }
+
+    .progress-fill {
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(45deg, #7c4dff, #b47aff);
+      transition: width 1s ease;
+    }
+
+    /* Community Section */
+    .community {
+      max-width: 1000px;
+      margin: 80px auto;
+      padding: 40px 20px;
+      text-align: center;
+      background: linear-gradient(180deg, #1a1a1a, #000000);
+      border-radius: 12px;
+    }
+
+    .community h2 {
+      font-size: 2.8em;
+      color: #7c4dff;
+      margin-bottom: 40px;
+    }
+
+    .community p {
+      font-size: 1.2em;
+      color: #d0d0d0;
+      margin-bottom: 30px;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 40px 20px;
+      text-align: center;
+      background: #000000;
+    }
+
+    .testimonials h2 {
+      font-size: 2.8em;
+      color: #7c4dff;
+      margin-bottom: 40px;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .testimonial-card {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid #7c4dff22;
+      box-shadow: 0 5px 15px rgba(124, 77, 255, 0.2);
+    }
+
+    .testimonial-card p {
+      color: #d0d0d0;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-card h4 {
+      color: #b47aff;
+      font-size: 1.2em;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      max-width: 1000px;
+      margin: 80px auto;
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(45deg, #7c4dff22, #b47aff22);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .cta-section h2 {
+      font-size: 3em;
+      color: #ffffff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px rgba(124, 77, 255, 0.5);
+    }
+
+    .cta-section p {
+      font-size: 1.3em;
+      color: #d0d0d0;
+      margin-bottom: 40px;
+    }
+
+    /* FAQ Section */
+    .faq {
+      max-width: 1000px;
+      margin: 80px auto;
+      padding: 40px 20px;
+      text-align: left;
+    }
+
+    .faq h2 {
+      font-size: 2.8em;
+      color: #7c4dff;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .faq-item {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #1a1a1a;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .faq-item:hover {
+      background: #222222;
+    }
+
+    .faq-item h3 {
+      font-size: 1.4em;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .faq-item p {
+      color: #cccccc;
+      font-size: 1em;
+    }
+
+    /* Footer */
+    footer {
+      background: #000000;
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid #7c4dff22;
+      color: #888;
+      font-size: 0.9em;
+    }
+
+    footer a {
+      color: #b47aff;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #ffffff;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 1.2s ease-in;
+    }
+
+    /* Particle Background (Simplified) */
+    .particle-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      background: #7c4dff;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-100vh); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2em;
+      }
+
+      .hero h2 {
+        font-size: 2.5em;
+      }
+
+      .cta-buttons a {
+        padding: 14px 28px;
+        font-size: 1em;
+      }
+
+      .feature-grid,
+      .testimonial-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-bar {
+        width: 90%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav a {
+        margin: 0 10px;
+        font-size: 0.9em;
+      }
+
+      .hero h2 {
+        font-size: 2em;
+      }
+
+      .cta-section h2 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div class="particle-bg" id="particle-bg"></div>
+
+  <!-- Header -->
+  <header>
+    <h1>Gen</h1>
+    <p>Your AI-Powered Personal Assistant</p>
+    <nav>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#features">Features</a>
+      <a href="#community">Community</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">Get Started</a>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <h2>Revolutionize Your Life with Gen</h2>
+      <p>Struggling with laziness or lack of focus? Gen is your AI personal assistant, transforming your habits with smart task management, mood-based suggestions, and community challenges.</p>
+      <div class="cta-buttons">
+        <a href="#start">Get Started Now</a>
+        <a href="#" id="demo-btn">Try Demo</a>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+      <h2>How Gen Works</h2>
+      <div class="steps">
+        <div class="step fade-in">
+          <h3>1. Sign Up</h3>
+          <p>Create your Gen account and connect to start your productivity journey.</p>
+        </div>
+        <div class="step fade-in">
+          <h3>2. Set Goals</h3>
+          <p>Tell Gen your goals, and it will craft a personalized plan with tasks and reminders.</p>
+        </div>
+        <div class="step fade-in">
+          <h3>3. Stay Motivated</h3>
+          <p>Track progress, get mood-based suggestions, and join community challenges.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+      <h2>Powerful Features</h2>
+      <div class="feature-grid">
+        <div class="feature-card fade-in">
+          <h3>AI Habit Tracking</h3>
+          <p>Gen uses AI to track your habits and suggest improvements for lasting change.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <h3>Mood-Based Suggestions</h3>
+          <p>Get activity and meal ideas tailored to your mood, keeping you energized and focused.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <h3>Community Challenges</h3>
+          <p>Join global challenges to stay motivated and compete with others for rewards.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <h3>Task Management</h3>
+          <p>Organize tasks with smart prioritization and daily reminders.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <h3>Personal Coaching</h3>
+          <p>Receive motivational tips and strategies to transform your lifestyle.</p>
+        </div>
+      </div>
+      <div class="progress-tracker">
+        <h3>Your Progress, Visualized</h3>
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+        <p>Track your productivity with Gen's intuitive progress dashboard.</p>
+      </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community" id="community">
+      <h2>Join the Gen Community</h2>
+      <p>Connect with thousands of users worldwide, share your progress, and participate in exciting challenges to stay motivated.</p>
+      <div class="cta-buttons">
+        <a href="#">Join Now</a>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+      <h2>What Users Love About Gen</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card fade-in">
+          <p>"Gen turned my chaotic days into productive ones. The habit tracking is a game-changer!"</p>
+          <h4>– Emma R.</h4>
+        </div>
+        <div class="testimonial-card fade-in">
+          <p>"The mood-based suggestions helped me stay positive and active every day."</p>
+          <h4>– Liam S.</h4>
+        </div>
+        <div class="testimonial-card fade-in">
+          <p>"Community challenges make productivity fun! I love competing with others."</p>
+          <h4>– Sophia T.</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="start">
+      <h2>Start Your Transformation Today</h2>
+      <p>Join Gen and unlock a productive, motivated, and fulfilling life with AI-powered assistance.</p>
+      <div class="cta-buttons">
+        <a href="#">Download Now</a>
+        <a href="#">Sign Up Free</a>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item fade-in">
+        <h3>What is Gen?</h3>
+        <p>Gen is an AI-powered personal assistant designed to boost productivity through habit tracking, task management, and personalized suggestions.</p>
+      </div>
+      <div class="faq-item fade-in">
+        <h3>How does Gen's AI work?</h3>
+        <p>Gen uses advanced AI to analyze your habits, mood, and goals, providing tailored recommendations to keep you on track.</p>
+      </div>
+      <div class="faq-item fade-in">
+        <h3>Is Gen free?</h3>
+        <p>Gen offers a free plan with core features. Premium features are available via subscription.</p>
+      </div>
+      <div class="faq-item fade-in">
+        <h3>Can I join community challenges?</h3>
+        <p>Yes! Gen's community challenges let you compete and collaborate with users worldwide.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Gen. All Rights Reserved.</p>
+    <p>
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Terms</a> |
+      <a href="#">Contact</a> |
+      <a href="#">Community</a>
+    </p>
+  </footer>
+
+  <!-- JavaScript for Interactivity -->
+  <script>
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Scroll-Triggered Animations
+    const fadeInElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.2 });
+
+    fadeInElements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      observer.observe(el);
+    });
+
+    // Particle Effect
+    const particleBg = document.getElementById('particle-bg');
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.width = `${Math.random() * 3 + 1}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}vw`;
+      particle.style.top = `${Math.random() * 100}vh`;
+      particle.style.animationDelay = `${Math.random() * 10}s`;
+      particleBg.appendChild(particle);
+    }
+
+    // Demo Button (Placeholder)
+    document.getElementById('demo-btn').addEventListener('click', () => {
+      alert('Interactive demo coming soon! Sign up to get notified.');
+    });
+  </script>
+</body>
+</html>
