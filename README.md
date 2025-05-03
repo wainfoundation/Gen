@@ -61,7 +61,7 @@ This landing page is designed to promote **Gen**, a productivity-focused AI assi
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-repo/gen-landing-page.git
+git clone https://github.com/wainfoundation/Gen.git
 cd gen-landing-page
 ````
 
