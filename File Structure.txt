@@ -1,0 +1,11 @@
+gen-landing-page/
+├── index.html        # Main HTML file
+├── styles.css        # External CSS file
+├── script.js         # External JavaScript file
+├── README.md         # Project documentation
+├── Contributing.md   # Contribution guidelines
+├── assets/           # Images and other assets
+│   ├── favicon.ico   # Favicon placeholder
+│   ├── og-image.jpg  # Open Graph image placeholder
+│   └── (add more)    # Logo, screenshots, etc.
+└── .gitignore        # Git ignore file
