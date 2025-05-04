@@ -3,34 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Gen is your AI-powered personal assistant, designed to boost productivity with smart task management, habit tracking, and personalized suggestions." />
-  <meta name="keywords" content="Gen, personal assistant, productivity, AI, habit tracking, task management" />
+  <meta name="description" content="Revolutionize your life with Gen, your AI personal assistant that transforms habits with smart task management, mood-based suggestions, and community challenges." />
+  <meta name="keywords" content="Gen, personal assistant, productivity, AI, habit tracking, task management, mood-based suggestions, community challenges, Pi payments" />
   <meta name="author" content="Gen Team" />
   <!-- Open Graph for Social Sharing -->
-  <meta property="og:title" content="Gen – Your AI Personal Assistant" />
-  <meta property="og:description" content="Boost productivity with Gen’s AI-driven task management, habit tracking, and personalized suggestions." />
+  <meta property="og:title" content="Gen – Revolutionize Your Life" />
+  <meta property="og:description" content="Struggling with laziness or lack of focus? Gen transforms your habits with AI-driven task management, mood-based suggestions, and community challenges." />
   <meta property="og:image" content="assets/og-image.jpg" />
   <meta property="og:url" content="https://gen.example.com" />
+  <meta property="og:type" content="website" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Gen – Your AI Personal Assistant" />
-  <meta name="twitter:description" content="Boost productivity with Gen’s AI-driven task management, habit tracking, and personalized suggestions." />
+  <meta name="twitter:title" content="Gen – Revolutionize Your Life" />
+  <meta name="twitter:description" content="Struggling with laziness or lack of focus? Gen transforms your habits with AI-driven task management, mood-based suggestions, and community challenges." />
   <meta name="twitter:image" content="assets/og-image.jpg" />
-  <title>Gen – Your AI Personal Assistant</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" />
+  <link rel="preload" href="assets/favicon.ico" as="image" />
   <!-- Favicon -->
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+  <title>Gen – Revolutionize Your Life</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- jQuery for Pi SDK -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- Pi SDK -->
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <script>
+    // Initialize Pi SDK
+    Pi.init({ version: "2.0", sandbox: true });
+    
+    // Authenticate the user with Pi
+    const scopes = ['payments', 'username'];
+
+    function onIncompletePaymentFound(payment) {
+      console.log('Incomplete payment found:', payment);
+      const paymentId = payment.identifier;
+      const txid = payment.transaction?.txid;
+      $.post('/payment/complete', {
+        paymentId: paymentId,
+        txid: txid,
+        debug: 'cancel'
+      }, function(response) {
+        console.log('Payment completion response:', response);
+      }).fail(function(error) {
+        console.error('Error completing payment:', error);
+      });
+    }
+
+    function authenticateWithPi() {
+      Pi.authenticate(scopes, onIncompletePaymentFound)
+        .then(function(auth) {
+          console.log(`Hi ${auth.user.username}! You're ready to make payments!`);
+          const accessToken = auth.accessToken;
+          sessionStorage.setItem('piAccessToken', accessToken);
+          document.querySelector('#pi-connect-button').style.display = 'none';
+          document.querySelector('#pi-welcome-message').textContent = `Welcome, ${auth.user.username}!`;
+          document.querySelector('#pi-welcome-message').style.display = 'block';
+        })
+        .catch(function(error) {
+          console.error('Authentication error:', error);
+          alert('Failed to authenticate with Pi. Please try again.');
+        });
+    }
+  </script>
   <style>
     /* Root Variables */
     :root {
       --primary-indigo: #5A67D8;
       --secondary-purple: #4C51BF;
+      --accent-teal: #38B2AC;
       --background: #FFFFFF;
       --section-bg: #F7FAFC;
       --text-dark: #2D3748;
       --text-muted: #718096;
       --border: #E2E8F0;
       --shadow: rgba(0, 0, 0, 0.05);
+      --success: #48BB78;
+      --warning: #ECC94B;
     }
 
     /* Global Styles */
@@ -60,7 +111,7 @@
     }
 
     header .container {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -73,278 +124,898 @@
       font-weight: 700;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
     nav a {
       color: var(--text-dark);
       text-decoration: none;
       margin: 0 16px;
       font-weight: 500;
       font-size: 1rem;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, transform 0.2s ease;
     }
 
     nav a:hover, nav a:focus {
       color: var(--primary-indigo);
+      transform: translateY(-2px);
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-dark);
     }
 
     /* Container */
     .container {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
     /* Hero Section */
     .hero {
-      background: var(--section-bg);
-      padding: 80px 24px;
+      background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--accent-teal) 100%);
+      padding: 100px 24px;
       text-align: center;
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/hero-pattern.svg') repeat;
+      opacity: 0.1;
+      z-index: 0;
     }
 
     .hero h2 {
-      font-size: 3.5rem;
+      font-size: 3.8rem;
       font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
     }
 
     .hero p {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 24px;
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 32px;
+      position: relative;
+      z-index: 1;
     }
 
     .cta-button {
-      background: var(--primary-indigo);
-      color: #FFFFFF;
-      padding: 12px 24px;
-      border-radius: 6px;
+      background: #FFFFFF;
+      color: var(--primary-indigo);
+      padding: 14px 28px;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 1rem;
-      transition: background 0.3s ease, transform 0.3s ease;
+      font-size: 1.1rem;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       display: inline-block;
+      box-shadow: 0 4px 12px var(--shadow);
     }
 
     .cta-button.secondary {
       background: transparent;
-      border: 2px solid var(--primary-indigo);
-      color: var(--primary-indigo);
+      border: 2px solid #FFFFFF;
+      color: #FFFFFF;
     }
 
     .cta-button:hover, .cta-button:focus {
       background: var(--secondary-purple);
-      transform: translateY(-2px);
+      color: #FFFFFF;
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
       outline: none;
     }
 
     .cta-button.secondary:hover, .cta-button.secondary:focus {
-      background: var(--primary-indigo);
-      color: #FFFFFF;
+      background: #FFFFFF;
+      color: var(--primary-indigo);
     }
 
     .hero .cta-buttons {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       justify-content: center;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Sticky CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      display: none;
+    }
+
+    .sticky-cta .cta-button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    /* Stats Section */
+    .stats {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--section-bg);
+    }
+
+    .stats h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 40px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+    }
+
+    .stat-card {
+      background: var(--background);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .stat-card h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-indigo);
+      margin-bottom: 8px;
+    }
+
+    .stat-card p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
     }
 
     /* How It Works Section */
     .how-it-works {
-      padding: 64px 24px;
+      padding: 80px 24px;
       text-align: center;
     }
 
     .how-it-works h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: 32px;
+      margin-bottom: 40px;
     }
 
     .steps {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
     }
 
     .step {
       background: var(--background);
-      padding: 24px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px var(--shadow);
-      transition: transform 0.3s ease;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .step:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .step i {
+      font-size: 2.5rem;
+      color: var(--primary-indigo);
+      margin-bottom: 16px;
     }
 
     .step h3 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 600;
       color: var(--primary-indigo);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     .step p {
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: var(--text-muted);
     }
 
     /* Features Section */
     .features {
-      padding: 64px 24px;
+      padding: 80px 24px;
       background: var(--section-bg);
       text-align: center;
     }
 
     .features h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: 32px;
+      margin-bottom: 40px;
     }
 
     .feature-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
     }
 
     .feature-card {
       background: var(--background);
-      padding: 24px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px var(--shadow);
-      transition: transform 0.3s ease;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .feature-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      color: var(--primary-indigo);
+      margin-bottom: 16px;
     }
 
     .feature-card h3 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 600;
       color: var(--primary-indigo);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     .feature-card p {
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: var(--text-muted);
     }
 
-    /* CTA Section */
-    .cta-section {
-      padding: 64px 24px;
+    /* Mood Demo */
+    .mood-demo {
+      margin-top: 40px;
       text-align: center;
     }
 
-    .cta-section h2 {
-      font-size: 2.5rem;
+    .mood-demo select {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      margin-right: 16px;
+      width: 200px;
+    }
+
+    .mood-demo button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      background: var(--primary-indigo);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .mood-demo button:hover, .mood-demo button:focus {
+      background: var(--secondary-purple);
+      transform: translateY(-2px);
+    }
+
+    .mood-demo p {
+      margin-top: 16px;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      display: none;
+    }
+
+    /* Progress Tracker */
+    .progress-tracker {
+      margin-top: 24px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: var(--border);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      width: 75%;
+      height: 100%;
+      background: var(--success);
+      transition: width 1s ease;
+    }
+
+    /* Community Challenges Section */
+    .community-challenges {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--background);
+    }
+
+    .community-challenges h2 {
+      font-size: 2.8rem;
       font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+
+    .community-challenges p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .challenge-card {
+      background: var(--section-bg);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .challenge-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .challenge-card i {
+      font-size: 2.5rem;
+      color: var(--primary-indigo);
+      margin-bottom: 16px;
+    }
+
+    .challenge-card h3 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--primary-indigo);
+      margin-bottom: 16px;
+    }
+
+    .challenge-card p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    /* Leaderboard */
+    .leaderboard {
+      margin-top: 40px;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .leaderboard h3 {
+      font-size: 1.8rem;
+      font-weight: 600;
       color: var(--text-dark);
       margin-bottom: 16px;
     }
 
-    .cta-section p {
+    .leaderboard-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px;
+      background: var(--background);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 4px var(--shadow);
+    }
+
+    .leaderboard-item span {
+      font-size: 1.1rem;
+      color: var(--text-dark);
+    }
+
+    /* Testimonial Section */
+    .testimonials {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--section-bg);
+    }
+
+    .testimonials h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 40px;
+    }
+
+    .testimonial-carousel {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .testimonial-slide {
+      display: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .testimonial-slide.active {
+      display: block;
+    }
+
+    .testimonial-card {
+      background: var(--background);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .testimonial-card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-bottom: 16px;
+      object-fit: cover;
+    }
+
+    .testimonial-card p {
+      font-size: 1rem;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .testimonial-card h4 {
       font-size: 1.2rem;
-      color: var(--text-muted);
+      font-weight: 600;
+      color: var(--primary-indigo);
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .carousel-controls button {
+      background: var(--primary-indigo);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .carousel-controls button:hover {
+      background: var(--secondary-purple);
+    }
+
+    /* Pricing Teaser Section */
+    .pricing-teaser {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--background);
+    }
+
+    .pricing-teaser h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
       margin-bottom: 24px;
+    }
+
+    .pricing-teaser p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--primary-indigo);
+      color: #FFFFFF;
+    }
+
+    .newsletter h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .newsletter p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+
+    .newsletter form {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      width: 300px;
+      max-width: 100%;
+    }
+
+    .newsletter button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      background: #FFFFFF;
+      color: var(--primary-indigo);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .newsletter button:hover, .newsletter button:focus {
+      background: var(--secondary-purple);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--section-bg);
+    }
+
+    .cta-section h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+
+    .cta-section p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
     }
 
     .cta-section .cta-buttons {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       justify-content: center;
       flex-wrap: wrap;
     }
 
     /* FAQ Section */
     .faq {
-      padding: 64px 24px;
-      background: var(--section-bg);
+      padding: 80px 24px;
+      background: var(--background);
     }
 
     .faq h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: 32px;
+      margin-bottom: 40px;
       text-align: center;
     }
 
     .faq-item {
       margin-bottom: 16px;
-      padding: 16px;
+      padding: 20px;
       background: var(--background);
-      border-radius: 8px;
-      box-shadow: 0 2px 4px var(--shadow);
+      border-radius: 12px;
+      box-shadow: 0 4px 8px var(--shadow);
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     }
 
     .faq-item h3 {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: var(--text-dark);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-item h3::after {
+      content: '\f107';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active h3::after {
+      transform: rotate(180deg);
     }
 
     .faq-item p {
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: var(--text-muted);
+      display: none;
+    }
+
+    .faq-item.active p {
+      display: block;
     }
 
     /* Footer */
     footer {
-      background: var(--background);
-      padding: 32px 24px;
+      background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--accent-teal) 100%);
+      padding: 60px 24px 80px;
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/hero-pattern.svg') repeat;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    footer .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-column a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .footer-column a:hover, .footer-column a:focus {
+      color: var(--secondary-purple);
+      transform: translateX(4px);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      font-size: 1.8rem;
+      color: #FFFFFF;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .footer-social a:hover, .footer-social a:focus {
+      transform: scale(1.2);
+      color: var(--secondary-purple);
+    }
+
+    .footer-newsletter form {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-newsletter input[type="email"] {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.9rem;
+      width: 200px;
+      max-width: 100%;
+    }
+
+    .footer-newsletter button {
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      background: #FFFFFF;
+      color: var(--primary-indigo);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .footer-newsletter button:hover, .footer-newsletter button:focus {
+      background: var(--secondary-purple);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
       text-align: center;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 20px;
       font-size: 0.9rem;
     }
 
-    footer a {
-      color: var(--primary-indigo);
+    .back-to-top {
+      position: absolute;
+      bottom: 20px;
+      right: 24px;
+      background: var(--secondary-purple);
+      color: #FFFFFF;
+      padding: 12px;
+      border-radius: 50%;
+      font-size: 1.2rem;
       text-decoration: none;
-      margin: 0 12px;
-      transition: color 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
 
-    footer a:hover, footer a:focus {
-      color: var(--secondary-purple);
+    .back-to-top:hover, .back-to-top:focus {
+      background: var(--primary-indigo);
+      transform: translateY(-4px);
+    }
+
+    /* Modal for Live Demo */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--background);
+      padding: 32px;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-content h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      color: var(--text-dark);
+    }
+
+    .modal-content p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .modal-content .close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-dark);
     }
 
     /* Animations */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     .fade-in {
       opacity: 0;
-      animation: fadeIn 0.8s ease-in forwards;
+      animation: fadeIn 1s ease-in forwards;
+    }
+
+    .scale-in {
+      opacity: 0;
+      animation: scaleIn 0.5s ease-in forwards;
     }
 
     /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero h2 { font-size: 3rem; }
+      .hero p { font-size: 1.2rem; }
+      .stats h2, .how-it-works h2, .features h2, .community-challenges h2, .testimonials h2, .pricing-teaser h2, .newsletter h2, .cta-section h2, .faq h2 { font-size: 2.5rem; }
+    }
+
     @media (max-width: 768px) {
-      header .container { flex-direction: column; gap: 12px; }
+      header .container { flex-direction: column; gap: 16px; }
       header h1 { font-size: 1.6rem; }
+      nav { display: none; }
+      nav.active { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
+      .hamburger { display: block; }
       .hero h2 { font-size: 2.5rem; }
-      .hero p { font-size: 1rem; }
-      .cta-button { padding: 10px 20px; font-size: 0.9rem; }
-      .feature-grid, .steps { grid-template-columns: 1fr; }
-      .how-it-works h2, .features h2, .cta-section h2, .faq h2 { font-size: 2rem; }
+      .hero p { font-size: 1.1rem; }
+      .cta-button { padding: 12px 24px; font-size: 1rem; }
+      .feature-grid, .steps, .stats-grid, .challenge-grid { grid-template-columns: 1fr; }
+      .sticky-cta { display: block; }
+      .newsletter form { flex-direction: column; align-items: center; }
+      .newsletter input[type="email"] { width: 100%; }
+      .mood-demo select { width: 100%; margin-bottom: 16px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .back-to-top { bottom: 16px; right: 16px; }
     }
 
     @media (max-width: 480px) {
-      nav a { margin: 0 8px; font-size: 0.9rem; }
+      nav a { margin: 8px 0; font-size: 0.9rem; }
       .hero h2 { font-size: 2rem; }
-      .cta-section h2 { font-size: 1.8rem; }
-      .hero .cta-buttons, .cta-section .cta-buttons { flex-direction: column; gap: 12px; }
+      .hero p { font-size: 1rem; }
+      .cta-section h2 { font-size: 2rem; }
+      .hero .cta-buttons, .cta-section .cta-buttons { flex-direction: column; gap: 16px; }
+      .modal-content { padding: 24px; }
+      .modal-content h2 { font-size: 1.8rem; }
+      .footer-column h3 { font-size: 1.2rem; }
+      .footer-newsletter input[type="email"] { width: 100%; }
     }
   </style>
 </head>
@@ -353,9 +1024,14 @@
   <header role="banner">
     <div class="container">
       <h1>Gen</h1>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
       <nav role="navigation" aria-label="Main navigation">
         <a href="#how-it-works">How It Works</a>
         <a href="#features">Features</a>
+        <a href="#community">Community</a>
+        <a href="#testimonials">Testimonials</a>
         <a href="#faq">FAQ</a>
         <a href="#start">Get Started</a>
       </nav>
@@ -367,11 +1043,34 @@
     <!-- Hero Section -->
     <section class="hero" id="home" aria-labelledby="hero-heading">
       <div class="container">
-        <h2 id="hero-heading" class="fade-in">Boost Productivity with Gen</h2>
-        <p class="fade-in">Your AI-powered personal assistant for smart task management, habit tracking, and personalized suggestions to transform your daily routine.</p>
+        <h2 id="hero-heading" class="fade-in">Revolutionize Your Life with Gen</h2>
+        <p class="fade-in">Struggling with laziness or lack of focus? Gen is your AI personal assistant, transforming your habits with smart task management, mood-based suggestions, and community challenges.</p>
         <div class="cta-buttons fade-in">
           <a href="#start" class="cta-button">Get Started Free</a>
-          <a href="#" class="cta-button secondary">Learn More</a>
+          <a href="#demo" class="cta-button secondary" onclick="openModal()">Watch Demo</a>
+          <a href="#" class="cta-button secondary" id="pi-connect-button" onclick="authenticateWithPi()">Connect with Pi</a>
+        </div>
+        <p id="pi-welcome-message" style="display: none; margin-top: 20px; font-size: 1.2rem; color: #FFFFFF;"></p>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" aria-labelledby="stats-heading">
+      <div class="container">
+        <h2 id="stats-heading" class="fade-in">Gen by the Numbers</h2>
+        <div class="stats-grid">
+          <div class="stat-card fade-in">
+            <h3 id="users-count" data-target="150000">150,000+</h3>
+            <p>Active Users</p>
+          </div>
+          <div class="stat-card fade-in">
+            <h3 id="tasks-count" data-target="5000000">5M+</h3>
+            <p>Tasks Completed</p>
+          </div>
+          <div class="stat-card fade-in">
+            <h3 id="challenges-count" data-target="10000">10,000+</h3>
+            <p>Challenges Won</p>
+          </div>
         </div>
       </div>
     </section>
@@ -381,17 +1080,20 @@
       <div class="container">
         <h2 id="how-it-works-heading" class="fade-in">How Gen Works</h2>
         <div class="steps">
-          <article class="step fade-in" aria-labelledby="step-1">
+          <article class="step scale-in" aria-labelledby="step-1">
+            <i class="fas fa-user-plus"></i>
             <h3 id="step-1">1. Sign Up</h3>
-            <p>Create your Gen account to start your productivity journey.</p>
+            <p>Create your Gen account in seconds to kickstart your productivity journey.</p>
           </article>
-          <article class="step fade-in" aria-labelledby="step-2">
+          <article class="step scale-in" aria-labelledby="step-2">
+            <i class="fas fa-bullseye"></i>
             <h3 id="step-2">2. Set Goals</h3>
-            <p>Define your goals, and Gen will craft a personalized plan.</p>
+            <p>Define your personal or professional goals, and Gen crafts a tailored plan.</p>
           </article>
-          <article class="step fade-in" aria-labelledby="step-3">
+          <article class="step scale-in" aria-labelledby="step-3">
+            <i class="fas fa-chart-line"></i>
             <h3 id="step-3">3. Stay on Track</h3>
-            <p>Track progress with AI-driven insights and suggestions.</p>
+            <p>Monitor progress with AI-driven insights, reminders, and suggestions.</p>
           </article>
         </div>
       </div>
@@ -400,29 +1102,163 @@
     <!-- Features Section -->
     <section class="features" id="features" aria-labelledby="features-heading">
       <div class="container">
-        <h2 id="features-heading" class="fade-in">Why Choose Gen?</h2>
+        <h2 id="features-heading" class="fade-in">Why Gen Will Transform Your Life</h2>
         <div class="feature-grid">
-          <article class="feature-card fade-in" aria-labelledby="feature-1">
+          <article class="feature-card scale-in" aria-labelledby="feature-1">
+            <i class="fas fa-heartbeat"></i>
             <h3 id="feature-1">AI Habit Tracking</h3>
-            <p>Monitor and improve your habits with intelligent insights.</p>
+            <p>Overcome laziness with intelligent tracking and motivational insights.</p>
+            <div class="progress-tracker">
+              <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+              </div>
+              <p style="font-size: 0.9rem; margin-top: 8px;">75% to your next milestone</p>
+            </div>
           </article>
-          <article class="feature-card fade-in" aria-labelledby="feature-2">
-            <h3 id="feature-2">Task Management</h3>
-            <p>Organize tasks with smart prioritization and reminders.</p>
+          <article class="feature-card scale-in" aria-labelledby="feature-2">
+            <i class="fas fa-tasks"></i>
+            <h3 id="feature-2">Smart Task Management</h3>
+            <p>Stay focused with AI-powered task prioritization and seamless reminders.</p>
           </article>
-          <article class="feature-card fade-in" aria-labelledby="feature-3">
-            <h3 id="feature-3">Personalized Suggestions</h3>
-            <p>Get tailored recommendations based on your goals and mood.</p>
+          <article class="feature-card scale-in" aria-labelledby="feature-3">
+            <i class="fas fa-smile"></i>
+            <h3 id="feature-3">Mood-Based Suggestions</h3>
+            <p>Get personalized recommendations tailored to your mood and energy levels.</p>
+            <div class="mood-demo">
+              <select id="mood-select" aria-label="Select your mood">
+                <option value="tired">Tired</option>
+                <option value="motivated">Motivated</option>
+                <option value="stressed">Stressed</option>
+              </select>
+              <button onclick="showMoodSuggestion()">Get Suggestion</button>
+              <p id="mood-suggestion"></p>
+            </div>
+          </article>
+          <article class="feature-card scale-in" aria-labelledby="feature-4">
+            <i class="fas fa-users"></i>
+            <h3 id="feature-4">Community Challenges</h3>
+            <p>Join global challenges to stay motivated and compete with others.</p>
+          </article>
+          <article class="feature-card scale-in" aria-labelledby="feature-5">
+            <i class="fas fa-sync-alt"></i>
+            <h3 id="feature-5">Cross-Platform Sync</h3>
+            <p>Access Gen on web, iOS, and Android with real-time synchronization.</p>
+          </article>
+          <article class="feature-card scale-in" aria-labelledby="feature-6">
+            <i class="fas fa-shield-alt"></i>
+            <h3 id="feature-6">Secure Pi Payments</h3>
+            <p>Unlock premium features with fast and secure payments via Pi Network.</p>
           </article>
         </div>
+      </div>
+    </section>
+
+    <!-- Community Challenges Section -->
+    <section class="community-challenges" id="community" aria-labelledby="community-heading">
+      <div class="container">
+        <h2 id="community-heading" class="fade-in">Join the Gen Community</h2>
+        <p class="fade-in">Stay motivated with global community challenges. Compete, collaborate, and transform your habits alongside others.</p>
+        <div class="challenge-grid">
+          <article class="challenge-card scale-in" aria-labelledby="challenge-1">
+            <i class="fas fa-running"></i>
+            <h3 id="challenge-1">7-Day Focus Sprint</h3>
+            <p>Commit to daily tasks and boost your focus with this week-long challenge.</p>
+          </article>
+          <article class="challenge-card scale-in" aria-labelledby="challenge-2">
+            <i class="fas fa-book"></i>
+            <h3 id="challenge-2">Morning Routine Challenge</h3>
+            <p>Build a productive morning routine with community support and tips.</p>
+          </article>
+          <article class="challenge-card scale-in" aria-labelledby="challenge-3">
+            <i class="fas fa-trophy"></i>
+            <h3 id="challenge-3">Habit Hero Leaderboard</h3>
+            <p>Compete globally to maintain your habits and climb the leaderboard.</p>
+          </article>
+        </div>
+        <div class="leaderboard scale-in">
+          <h3>Top Performers</h3>
+          <div class="leaderboard-item">
+            <span>1. Alex K.</span>
+            <span>1,250 Points</span>
+          </div>
+          <div class="leaderboard-item">
+            <span>2. Maria S.</span>
+            <span>1,100 Points</span>
+          </div>
+          <div class="leaderboard-item">
+            <span>3. John D.</span>
+            <span>950 Points</span>
+          </div>
+        </div>
+        <div class="cta-buttons fade-in" style="margin-top: 32px;">
+          <a href="#start" class="cta-button">Join a Challenge</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <h2 id="testimonials-heading" class="fade-in">What Our Users Say</h2>
+        <div class="testimonial-carousel">
+          <article class="testimonial-slide fade-in" aria-labelledby="testimonial-1">
+            <div class="testimonial-card">
+              <img src="assets/user1.jpg" alt="User Sarah" loading="lazy" />
+              <p>“Gen transformed my daily routine. I’m more organized and motivated than ever!”</p>
+              <h4 id="testimonial-1">Sarah M., Freelancer</h4>
+            </div>
+          </article>
+          <article class="testimonial-slide fade-in" aria-labelledby="testimonial-2">
+            <div class="testimonial-card">
+              <img src="assets/user2.jpg" alt="User James" loading="lazy" />
+              <p>“The AI suggestions are spot-on. It’s like having a personal coach in my pocket.”</p>
+              <h4 id="testimonial-2">James T., Entrepreneur</h4>
+            </div>
+          </article>
+          <article class="testimonial-slide fade-in" aria-labelledby="testimonial-3">
+            <div class="testimonial-card">
+              <img src="assets/user3.jpg" alt="User Emily" loading="lazy" />
+              <p>“I love how Gen syncs across my devices. It keeps me on track wherever I am.”</p>
+              <h4 id="testimonial-3">Emily R., Student</h4>
+            </div>
+          </article>
+        </div>
+        <div class="carousel-controls">
+          <button onclick="prevSlide()">Previous</button>
+          <button onclick="nextSlide()">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Teaser Section -->
+    <section class="pricing-teaser" id="pricing" aria-labelledby="pricing-heading">
+      <div class="container">
+        <h2 id="pricing-heading" class="fade-in">Start Your Transformation Today</h2>
+        <p class="fade-in">From free to premium, Gen offers plans to help you overcome laziness and stay focused. Unlock premium features with secure Pi payments.</p>
+        <div class="cta-buttons fade-in">
+          <a href="#start" class="cta-button">Explore Plans</a>
+          <a href="#demo" class="cta-button secondary" onclick="openModal()">See Demo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter" id="newsletter" aria-labelledby="newsletter-heading">
+      <div class="container">
+        <h2 id="newsletter-heading" class="fade-in">Stay Updated with Gen</h2>
+        <p class="fade-in">Subscribe to our newsletter for productivity tips, challenge updates, and exclusive offers.</p>
+        <form class="fade-in" onsubmit="handleNewsletterSubmit(event)">
+          <input type="email" placeholder="Enter your email" aria-label="Email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
       </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section" id="start" aria-labelledby="cta-heading">
       <div class="container">
-        <h2 id="cta-heading" class="fade-in">Join 50,000+ Users Today</h2>
-        <p class="fade-in">Start transforming your productivity with Gen’s AI-powered tools.</p>
+        <h2 id="cta-heading" class="fade-in">Join 150,000+ Users Transforming Their Lives</h2>
+        <p class="fade-in">Overcome laziness and lack of focus with Gen’s AI-powered tools. Free forever plan available.</p>
         <div class="cta-buttons fade-in">
           <a href="#" class="cta-button">Get Started Free</a>
           <a href="#" class="cta-button secondary">Download App</a>
@@ -436,32 +1272,107 @@
         <h2 id="faq-heading" class="fade-in">Frequently Asked Questions</h2>
         <div class="faq-item fade-in" aria-labelledby="faq-1">
           <h3 id="faq-1">What is Gen?</h3>
-          <p>Gen is an AI-powered personal assistant for productivity, offering task management, habit tracking, and personalized suggestions.</p>
+          <p>Gen is an AI-powered personal assistant designed to boost productivity through task management, habit tracking, mood-based suggestions, and community challenges.</p>
         </div>
         <div class="faq-item fade-in" aria-labelledby="faq-2">
           <h3 id="faq-2">Is Gen free to use?</h3>
-          <p>Yes, Gen offers a free plan with core features. Premium options are available for advanced tools.</p>
+          <p>Yes, Gen offers a free plan with core features. Premium plans unlock advanced tools and insights.</p>
         </div>
         <div class="faq-item fade-in" aria-labelledby="faq-3">
           <h3 id="faq-3">How does Gen’s AI work?</h3>
-          <p>Gen analyzes your goals and habits to provide tailored recommendations and insights.</p>
+          <p>Gen uses advanced AI to analyze your goals, habits, mood, and preferences, delivering tailored recommendations and actionable insights.</p>
+        </div>
+        <div class="faq-item fade-in" aria-labelledby="faq-4">
+          <h3 id="faq-4">Is my data secure with Gen?</h3>
+          <p>Absolutely. Gen uses industry-standard encryption and privacy protocols to protect your data.</p>
+        </div>
+        <div class="faq-item fade-in" aria-labelledby="faq-5">
+          <h3 id="faq-5">Can I pay with Pi?</h3>
+          <p>Yes, Gen supports secure payments via the Pi Network for premium features and subscriptions.</p>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- Sticky CTA -->
+  <div class="sticky-cta">
+    <a href="#start" class="cta-button">Get Started</a>
+  </div>
+
+  <!-- Modal for Live Demo -->
+  <div class="modal" id="demo-modal" role="dialog" aria-labelledby="modal-heading">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()" aria-label="Close modal">×</span>
+      <h2 id="modal-heading">Experience Gen in Action</h2>
+      <p>Watch a quick demo to see how Gen can transform your productivity with AI-powered tools.</p>
+      <video controls width="100%" aria-label="Gen demo video">
+        <source src="assets/demo-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <!-- Enhanced Footer -->
   <footer role="contentinfo">
     <div class="container">
-      <p>© 2025 Gen. All Rights Reserved.</p>
-      <p>
-        <a href="#">Privacy Policy</a> |
-        <a href="#">Terms</a> |
-        <a href="#">Contact</a> |
-        <a href="https://x.com/gen_app" target="_blank" rel="noopener">X</a>
-      </p>
+      <div class="footer-grid">
+        <div class="footer-column fade-in">
+          <h3>About Gen</h3>
+          <p style="font-size: 0.9rem; color: #FFFFFF;">Revolutionize your life with Gen, your AI personal assistant for productivity and habit transformation.</p>
+        </div>
+        <div class="footer-column fade-in">
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#community">Community</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="https://x.ai/api" target="_blank" rel="noopener">API Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-column fade-in">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-column footer-newsletter fade-in">
+          <h3>Stay Connected</h3>
+          <form onsubmit="handleFooterNewsletterSubmit(event)">
+            <input type="email" placeholder="Enter your email" aria-label="Email address for newsletter" required />
+            <button type="submit">Subscribe</button>
+          </form>
+          <div class="footer-social" style="margin-top: 16px;">
+            <a href="https://x.com/gen_app" target="_blank" rel="noopener" aria-label="Follow Gen on X"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://instagram.com/gen_app" target="_blank" rel="noopener" aria-label="Follow Gen on Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com/company/gen_app" target="_blank" rel="noopener" aria-label="Follow Gen on LinkedIn"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom fade-in">
+        <p>© 2025 Gen. All Rights Reserved.</p>
+      </div>
+      <a href="#home" class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
     </div>
   </footer>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Gen",
+      "url": "https://gen.example.com",
+      "description": "Revolutionize your life with Gen, your AI personal assistant that transforms habits with smart task management, mood-based suggestions, and community challenges.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Gen Team"
+      }
+    }
+  </script>
 
   <!-- JavaScript -->
   <script>
@@ -475,21 +1386,136 @@
       });
     });
 
-    // Fade-In Animations
-    const fadeInElements = document.querySelectorAll('.fade-in');
+    // Hamburger Menu
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    hamburger.addEventListener('click', () => {
+      const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', !isExpanded);
+      nav.classList.toggle('active');
+      hamburger.innerHTML = isExpanded ? '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
+    });
+
+    // Fade-In and Scale-In Animations
+    const animateElements = document.querySelectorAll('.fade-in, .scale-in');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+          entry.target.style.transform = entry.target.classList.contains('scale-in') ? 'scale(1)' : 'translateY(0)';
         }
       });
     }, { threshold: 0.2 });
 
-    fadeInElements.forEach(el => {
+    animateElements.forEach(el => {
       el.style.opacity = '0';
-      el.style.transform = 'translateY(10px)';
+      el.style.transform = el.classList.contains('scale-in') ? 'scale(0.95)' : 'translateY(20px)';
       observer.observe(el);
+    });
+
+    // Stats Counter Animation
+    const counters = document.querySelectorAll('.stat-card h3');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText.replace(/[^0-9]/g, '');
+        const increment = target / 200;
+        if (count < target) {
+          counter.innerText = `${Math.ceil(count + increment).toLocaleString()}+`;
+          setTimeout(updateCount, 10);
+        } else {
+          counter.innerText = `${target.toLocaleString()}+`;
+        }
+      };
+      observer.observe(counter);
+      counter.addEventListener('animationstart', updateCount);
+    });
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('p').style.display = 'none';
+        });
+        if (!isActive) {
+          item.classList.add('active');
+          item.querySelector('p').style.display = 'block';
+        }
+      });
+    });
+
+    // Modal Functionality
+    function openModal() {
+      document.getElementById('demo-modal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('demo-modal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Newsletter Form Submission
+    function handleNewsletterSubmit(event) {
+      event.preventDefault();
+      const email = event.target.querySelector('input[type="email"]').value;
+      alert(`Thank you for subscribing with ${email}!`);
+      event.target.reset();
+    }
+
+    // Footer Newsletter Submission
+    function handleFooterNewsletterSubmit(event) {
+      event.preventDefault();
+      const email = event.target.querySelector('input[type="email"]').value;
+      alert(`Thank you for subscribing with ${email}!`);
+      event.target.reset();
+    }
+
+    // Mood-Based Suggestion Demo
+    function showMoodSuggestion() {
+      const mood = document.getElementById('mood-select').value;
+      const suggestion = document.getElementById('mood-suggestion');
+      const suggestions = {
+        tired: "Take a 10-minute power nap or try a quick stretching routine to boost your energy.",
+        motivated: "Tackle your most important task now and reward yourself with a break afterward!",
+        stressed: "Try a 5-minute deep breathing exercise or jot down your thoughts to clear your mind."
+      };
+      suggestion.textContent = suggestions[mood];
+      suggestion.style.display = 'block';
+    }
+
+    // Testimonial Carousel
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.testimonial-slide');
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    showSlide(currentSlide);
+    setInterval(nextSlide, 5000); // Auto-advance every 5 seconds
+
+    // Lazy Load Images
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+      img.setAttribute('loading', 'lazy');
     });
   </script>
 </body>
