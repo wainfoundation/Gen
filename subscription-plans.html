@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore Gen’s subscription plans with Basic, Pro, and Premium tiers. Unlock AI-powered productivity tools with Pi payments." />
+  <meta name="keywords" content="Gen, subscription plans, pricing, Pi payments, productivity, AI, Basic, Pro, Premium" />
+  <meta name="author" content="Gen Team" />
+  <!-- Open Graph for Social Sharing -->
+  <meta property="og:title" content="Gen – Subscription Plans" />
+  <meta property="og:description" content="Choose from Gen’s Basic, Pro, or Premium plans to revolutionize your life with AI-powered tools, starting at 3 Pi/month." />
+  <meta property="og:image" content="assets/og-image.jpg" />
+  <meta property="og:url" content="https://gen.example.com/subscription-plans.html" />
+  <meta property="og:type" content="website" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gen – Subscription Plans" />
+  <meta name="twitter:description" content="Choose from Gen’s Basic, Pro, or Premium plans to revolutionize your life with AI-powered tools, starting at 3 Pi/month." />
+  <meta name="twitter:image" content="assets/og-image.jpg" />
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" />
+  <link rel="preload" href="assets/favicon.ico" as="image" />
+  <link rel="preload" href="assets/logo.png" as="image" />
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+  <title>Gen – Subscription Plans</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Root Variables */
+    :root {
+      --primary-indigo: #5A67D8;
+      --secondary-purple: #4C51BF;
+      --accent-teal: #38B2AC;
+      --background: #FFFFFF;
+      --section-bg: #F7FAFC;
+      --text-dark: #2D3748;
+      --text-muted: #718096;
+      --border: #E2E8F0;
+      --shadow: rgba(0, 0, 0, 0.05);
+      --success: #48BB78;
+    }
+
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text-dark);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Enhanced Header */
+    header {
+      background: var(--background);
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px var(--shadow);
+      transition: box-shadow 0.3s ease;
+    }
+
+    header .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-container img {
+      height: 40px;
+      width: auto;
+    }
+
+    header h1 {
+      color: var(--primary-indigo);
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    nav a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: color 0.3s ease, background 0.3s ease, transform 0.2s ease;
+    }
+
+    nav a:hover, nav a:focus {
+      color: var(--primary-indigo);
+      background: rgba(90, 103, 216, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .sign-in-button {
+      background: var(--primary-indigo);
+      color: #FFFFFF;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .sign-in-button:hover, .sign-in-button:focus {
+      background: var(--secondary-purple);
+      transform: translateY(-2px);
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    nav.active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      right: 0;
+      background: var(--background);
+      padding: 16px;
+      box-shadow: 0 4px 8px var(--shadow);
+      transform: translateY(0);
+      animation: slideIn 0.3s ease-in;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Recommendation Section */
+    .recommendation-section {
+      padding: 60px 24px;
+      background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--accent-teal) 100%);
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .recommendation-section h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .recommendation-section p {
+      font-size: 1.2rem;
+      margin-bottom: 32px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .recommendation-form {
+      background: var(--background);
+      padding: 32px;
+      border-radius: 12px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 6px 12px var(--shadow);
+    }
+
+    .recommendation-form h3 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary-indigo);
+      margin-bottom: 24px;
+    }
+
+    .recommendation-form .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .recommendation-form label {
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .recommendation-form input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--primary-indigo);
+    }
+
+    .recommendation-form button {
+      background: var(--primary-indigo);
+      color: #FFFFFF;
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .recommendation-form button:hover, .recommendation-form button:focus {
+      background: var(--secondary-purple);
+      transform: translateY(-2px);
+    }
+
+    #recommendation-result {
+      margin-top: 24px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-indigo);
+      display: none;
+    }
+
+    #recommendation-result.show {
+      display: block;
+    }
+
+    /* Pricing Section */
+    .pricing-section {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--section-bg);
+    }
+
+    .pricing-section h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+
+    .pricing-section p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .pricing-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .pricing-toggle button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--background);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .pricing-toggle button.active {
+      background: var(--primary-indigo);
+      color: #FFFFFF;
+      border-color: var(--primary-indigo);
+    }
+
+    .pricing-toggle button:hover, .pricing-toggle button:focus {
+      background: var(--secondary-purple);
+      color: #FFFFFF;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .pricing-card {
+      background: var(--background);
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .pricing-card h3 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary-indigo);
+      margin-bottom: 16px;
+    }
+
+    .pricing-card .price {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .pricing-card .price span {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+    }
+
+    .pricing-card .approx-usd {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .pricing-card ul li {
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pricing-card ul li i {
+      color: var(--success);
+    }
+
+    .pricing-card .cta-button {
+      background: var(--primary-indigo);
+      color: #FFFFFF;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: block;
+      text-align: center;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .pricing-card .cta-button:hover, .pricing-card .cta-button:focus {
+      background: var(--secondary-purple);
+      transform: translateY(-2px);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 80px 24px;
+      background: var(--background);
+      text-align: center;
+    }
+
+    .faq-section h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+
+    .faq-section p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .faq-item {
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+
+    .faq-item summary {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-indigo);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: '\f078'; /* FontAwesome chevron-down */
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item details[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .faq-item p {
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      padding: 12px 0;
+      margin: 0;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--accent-teal) 100%);
+      padding: 60px 24px 80px;
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/hero-pattern.svg') repeat;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    footer .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-column a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .footer-column a:hover, .footer-column a:focus {
+      color: var(--secondary-purple);
+      transform: translateX(4px);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      font-size: 1.8rem;
+      color: #FFFFFF;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .footer-social a:hover, .footer-social a:focus {
+      transform: scale(1.2);
+      color: var(--secondary-purple);
+    }
+
+    .footer-newsletter form {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-newsletter input[type="email"] {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.9rem;
+      width: 200px;
+      max-width: 100%;
+    }
+
+    .footer-newsletter button {
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      background: #FFFFFF;
+      color: var(--primary-indigo);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .footer-newsletter button:hover, .footer-newsletter button:focus {
+      background: var(--secondary-purple);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease-in forwards;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .pricing-section h2, .faq-section h2, .recommendation-section h2 { font-size: 2.5rem; }
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      header .container { flex-direction: column; gap: 16px; }
+      header h1 { font-size: 1.6rem; }
+      .logo-container img { height: 32px; }
+      nav { display: none; }
+      nav.active { display: flex; }
+      .hamburger { display: block; }
+      .pricing-section, .faq-section, .recommendation-section { padding: 60px 24px; }
+      .pricing-section p, .faq-section p, .recommendation-section p { font-size: 1.2rem; }
+      .pricing-card .price { font-size: 2rem; }
+      .recommendation-form { padding: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      nav a { margin: 8px 0; font-size: 0.9rem; }
+      .pricing-section h2, .faq-section h2, .recommendation-section h2 { font-size: 2rem; }
+      .pricing-card h3, .recommendation-form h3 { font-size: 1.6rem; }
+      .pricing-card .cta-button { padding: 12px 24px; font-size: 1rem; }
+      .footer-column h3 { font-size: 1.2rem; }
+      .footer-newsletter input[type="email"] { width: 100%; }
+      .faq-item summary { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Enhanced Header with Logo -->
+  <header role="banner">
+    <div class="container">
+      <div class="logo-container">
+        <img src="assets/logo.png" alt="Gen Logo" onerror="this.style.display='none'" />
+        <h1>Gen</h1>
+      </div>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav role="navigation" aria-label="Main navigation">
+        <a href="index.html#how-it-works">How It Works</a>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#community">Community</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="subscription-plans.html" class="active">Pricing</a>
+        <a href="#" class="sign-in-button">Sign In</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Recommendation Section -->
+  <section class="recommendation-section" aria-labelledby="recommendation-heading">
+    <div class="container">
+      <h2 id="recommendation-heading" class="fade-in">Find Your Perfect Plan</h2>
+      <p class="fade-in">Answer a few questions about your needs, and we’ll recommend the best Gen subscription plan for you.</p>
+      <div class="recommendation-form fade-in">
+        <h3>Which features are you looking for?</h3>
+        <form id="recommendation-form" onsubmit="handleRecommendation(event)">
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="habit-tracking" /> Basic habit tracking</label>
+            <label><input type="checkbox" name="task-management" /> Simple task management</label>
+            <label><input type="checkbox" name="mood-suggestions" /> Mood-based suggestions</label>
+            <label><input type="checkbox" name="advanced-tasks" /> Advanced task prioritization</label>
+            <label><input type="checkbox" name="analytics" /> In-depth analytics dashboard</label>
+            <label><input type="checkbox" name="coaching" /> Personalized AI coaching</label>
+            <label><input type="checkbox" name="events" /> Exclusive community events</label>
+          </div>
+          <button type="submit">Get Recommendation</button>
+        </form>
+        <div id="recommendation-result" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" aria-labelledby="pricing-heading">
+    <div class="container">
+      <h2 id="pricing-heading" class="fade-in">Choose Your Gen Plan</h2>
+      <p class="fade-in">Unlock AI-powered productivity with Basic, Pro, or Premium plans, payable with Pi. Save up to 17% with yearly billing.</p>
+      <div class="pricing-toggle fade-in">
+        <button class="toggle-monthly active" onclick="showMonthly()">Monthly</button>
+        <button class="toggle-yearly" onclick="showYearly()">Yearly (Save 17%)</button>
+      </div>
+      <div class="pricing-grid monthly-prices fade-in">
+        <div class="pricing-card">
+          <h3>Basic</h3>
+          <div class="price">3 Pi<span>/month</span></div>
+          <div class="approx-usd">~ $1.76 USD</div>
+          <ul>
+            <li><i class="fas fa-check"></i> AI Habit Tracking</li>
+            <li><i class="fas fa-check"></i> Basic Task Management</li>
+            <li><i class="fas fa-check"></i> Community Challenges</li>
+            <li><i class="fas fa-check"></i> Cross-Platform Sync</li>
+            <li><i class="fas fa-check"></i> Pi Payments</li>
+          </ul>
+          <a href="#" class="cta-button">Get Basic</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Pro</h3>
+          <div class="price">6 Pi<span>/month</span></div>
+          <div class="approx-usd">~ $3.52 USD</div>
+          <ul>
+            <li><i class="fas fa-check"></i> Everything in Basic</li>
+            <li><i class="fas fa-check"></i> Mood-Based Suggestions</li>
+            <li><i class="fas fa-check"></i> Advanced Task Prioritization</li>
+            <li><i class="fas fa-check"></i> Priority Support</li>
+            <li><i class="fas fa-check"></i> Custom Challenge Creation</li>
+          </ul>
+          <a href="#" class="cta-button">Get Pro</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Premium</h3>
+          <div class="price">12 Pi<span>/month</span></div>
+          <div class="approx-usd">~ $7.04 USD</div>
+          <ul>
+            <li><i class="fas fa-check"></i> Everything in Pro</li>
+            <li><i class="fas fa-check"></i> Personalized AI Coaching</li>
+            <li><i class="fas fa-check"></i> Advanced Analytics Dashboard</li>
+            <li><i class="fas fa-check"></i> Exclusive Community Events</li>
+            <li><i class="fas fa-check"></i> Early Access to New Features</li>
+          </ul>
+          <a href="#" class="cta-button">Get Premium</a>
+        </div>
+      </div>
+      <div class="pricing-grid yearly-prices" style="display: none;">
+        <div class="pricing-card">
+          <h3>Basic</h3>
+          <div class="price">30 Pi<span>/year</span></div>
+          <div class="approx-usd">~ $17.61 USD</div>
+          <ul>
+            <li><i class="fas fa-check"></i> AI Habit Tracking</li>
+            <li><i class="fas fa-check"></i> Basic Task Management</li>
+            <li><i class="fas fa-check"></i> Community Challenges</li>
+            <li><i class="fas fa-check"></i> Cross-Platform Sync</li>
+            <li><i class="fas fa-check"></i> Pi Payments</li>
+          </ul>
+          <a href="#" class="cta-button">Get Basic</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Pro</h3>
+          <div class="price">60 Pi<span>/year</span></div>
+          <div class="approx-usd">~ $35.22 USD</div>
+          <ul>
+            <li><i class="fas fa-check"></i> Everything in Basic</li>
+            <li><i class="fas fa-check"></i> Mood-Based Suggestions</li>
+            <li><i class="fas fa-check"></i> Advanced Task Prioritization</li>
+            <li><i class="fas fa-check"></i> Priority Support</li>
+            <li><i class="fas fa-check"></i> Custom Challenge Creation</li>
+          </ul>
+          <a href="#" class="cta-button">Get Pro</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Premium</h3>
+          <div class="price">120 Pi<span>/year</span></div>
+          <div class="approx-usd">~ $70.44 USD</div>
+          <ul>
+            <li><i class="fas fa-check"></i> Everything in Pro</li>
+            <li><i class="fas fa-check"></i> Personalized AI Coaching</li>
+            <li><i class="fas fa-check"></i> Advanced Analytics Dashboard</li>
+            <li><i class="fas fa-check"></i> Exclusive Community Events</li>
+            <li><i class="fas fa-check"></i> Early Access to New Features</li>
+          </ul>
+          <a href="#" class="cta-button">Get Premium</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <div class="container">
+      <h2 id="faq-heading" class="fade-in">Frequently Asked Questions</h2>
+      <p class="fade-in">Find answers to common questions about Gen’s subscription plans and features.</p>
+      <div class="faq-list">
+        <div class="faq-item fade-in">
+          <details>
+            <summary>What is included in each subscription plan?</summary>
+            <p>The Basic plan (3 Pi/month) includes AI habit tracking, basic task management, community challenges, cross-platform sync, and Pi payments. The Pro plan (6 Pi/month) adds mood-based suggestions, advanced task prioritization, priority support, and custom challenge creation. The Premium plan (12 Pi/month) includes everything in Pro, plus personalized AI coaching, an advanced analytics dashboard, exclusive community events, and early access to new features.</p>
+          </details>
+        </div>
+        <div class="faq-item fade-in">
+          <details>
+            <summary>Can I switch between plans?</summary>
+            <p>Yes, you can upgrade or downgrade your plan at any time. Changes take effect at the start of the next billing cycle, and you’ll be charged the new plan’s rate.</p>
+          </details>
+        </div>
+        <div class="faq-item fade-in">
+          <details>
+            <summary>How do Pi payments work?</summary>
+            <p>Gen uses the Pi Network for secure, cryptocurrency-based payments. You’ll need a Pi wallet to pay with Pi. The Pi Browser handles transactions seamlessly, and prices are shown in Pi with approximate USD equivalents.</p>
+          </details>
+        </div>
+        <div class="faq-item fade-in">
+          <details>
+            <summary>Is there a free trial?</summary>
+            <p>Currently, Gen offers a 7-day free trial for Pro and Premium plans. You can try all features before committing to a paid subscription.</p>
+          </details>
+        </div>
+        <div class="faq-item fade-in">
+          <details>
+            <summary>What happens if I cancel my subscription?</summary>
+            <p>You can cancel anytime via your account settings. You’ll retain access to your plan’s features until the end of the current billing period, after which you’ll revert to a free account with limited features.</p>
+          </details>
+        </div>
+        <div class="faq-item fade-in">
+          <details>
+            <summary>Do you offer refunds?</summary>
+            <p>Refunds are available within 14 days of purchase for monthly plans and 30 days for yearly plans, provided you haven’t extensively used premium features. Contact support for assistance.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Footer -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column fade-in">
+          <h3>About Gen</h3>
+          <p style="font-size: 0.9rem; color: #FFFFFF;">Revolutionize your life with Gen, your AI personal assistant for productivity and habit transformation.</p>
+        </div>
+        <div class="footer-column fade-in">
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="index.html#how-it-works">How It Works</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#community">Community</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="https://x.ai/api" target="_blank" rel="noopener">API Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-column fade-in">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-column footer-newsletter fade-in">
+          <h3>Stay Connected</h3>
+          <form onsubmit="handleFooterNewsletterSubmit(event)">
+            <input type="email" placeholder="Enter your email" aria-label="Email address for newsletter" required />
+            <button type="submit">Subscribe</button>
+          </form>
+          <div class="footer-social" style="margin-top: 16px;">
+            <a href="https://x.com/gen_app" target="_blank" rel="noopener" aria-label="Follow Gen on X"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://instagram.com/gen_app" target="_blank" rel="noopener" aria-label="Follow Gen on Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com/company/gen_app" target="_blank" rel="noopener" aria-label="Follow Gen on LinkedIn"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom fade-in">
+        <p>© 2025 Gen. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Gen – Subscription Plans",
+      "url": "https://gen.example.com/subscription-plans.html",
+      "description": "Choose from Gen’s Basic, Pro, or Premium plans to revolutionize your life with AI-powered tools, starting at 3 Pi/month.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Gen Team"
+      },
+      "mainEntity": [
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is included in each subscription plan?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Basic plan (3 Pi/month) includes AI habit tracking, basic task management, community challenges, cross-platform sync, and Pi payments. The Pro plan (6 Pi/month) adds mood-based suggestions, advanced task prioritization, priority support, and custom challenge creation. The Premium plan (12 Pi/month) includes everything in Pro, plus personalized AI coaching, an advanced analytics dashboard, exclusive community events, and early access to new features."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I switch between plans?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, you can upgrade or downgrade your plan at any time. Changes take effect at the start of the next billing cycle, and you’ll be charged the new plan’s rate."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do Pi payments work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Gen uses the Pi Network for secure, cryptocurrency-based payments. You’ll need a Pi wallet to pay with Pi. The Pi Browser handles transactions seamlessly, and prices are shown in Pi with approximate USD equivalents."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is there a free trial?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Currently, Gen offers a 7-day free trial for Pro and Premium plans. You can try all features before committing to a paid subscription."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What happens if I cancel my subscription?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can cancel anytime via your account settings. You’ll retain access to your plan’s features until the end of the current billing period, after which you’ll revert to a free account with limited features."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you offer refunds?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Refunds are available within 14 days of purchase for monthly plans and 30 days for yearly plans, provided you haven’t extensively used premium features. Contact support for assistance."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+
+  <!-- JavaScript -->
+  <script>
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(anchor.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Hamburger Menu
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    hamburger.addEventListener('click', () => {
+      const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', !isExpanded);
+      nav.classList.toggle('active');
+      hamburger.innerHTML = isExpanded ? '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
+    });
+
+    // Fade-In Animations
+    const animateElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.2 });
+
+    animateElements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      observer.observe(el);
+    });
+
+    // Pricing Toggle
+    function showMonthly() {
+      document.querySelector('.monthly-prices').style.display = 'grid';
+      document.querySelector('.yearly-prices').style.display = 'none';
+      document.querySelector('.toggle-monthly').classList.add('active');
+      document.querySelector('.toggle-yearly').classList.remove('active');
+    }
+
+    function showYearly() {
+      document.querySelector('.monthly-prices').style.display = 'none';
+      document.querySelector('.yearly-prices').style.display = 'grid';
+      document.querySelector('.toggle-monthly').classList.remove('active');
+      document.querySelector('.toggle-yearly').classList.add('active');
+    }
+
+    // Footer Newsletter Submission
+    function handleFooterNewsletterSubmit(event) {
+      event.preventDefault();
+      const email = event.target.querySelector('input[type="email"]').value;
+      alert(`Thank you for subscribing with ${email}!`);
+      event.target.reset();
+    }
+
+    // Recommendation Logic
+    function handleRecommendation(event) {
+      event.preventDefault();
+      const form = event.target;
+      const resultDiv = document.getElementById('recommendation-result');
+      const needs = {
+        'habit-tracking': form.querySelector('input[name="habit-tracking"]').checked,
+        'task-management': form.querySelector('input[name="task-management"]').checked,
+        'mood-suggestions': form.querySelector('input[name="mood-suggestions"]').checked,
+        'advanced-tasks': form.querySelector('input[name="advanced-tasks"]').checked,
+        'analytics': form.querySelector('input[name="analytics"]').checked,
+        'coaching': form.querySelector('input[name="coaching"]').checked,
+        'events': form.querySelector('input[name="events"]').checked
+      };
+
+      let recommendation = 'Basic';
+      if (needs['analytics'] || needs['coaching'] || needs['events']) {
+        recommendation = 'Premium';
+      } else if (needs['mood-suggestions'] || needs['advanced-tasks']) {
+        recommendation = 'Pro';
+      } else if (needs['habit-tracking'] || needs['task-management']) {
+        recommendation = 'Basic';
+      }
+
+      resultDiv.innerHTML = `We recommend the <strong>${recommendation}</strong> plan for your needs. Scroll down to learn more!`;
+      resultDiv.classList.add('show');
+      resultDiv.focus();
+      form.reset();
+    }
+  </script>
+</body>
+</html>
