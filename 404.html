@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Page not found. Return to Gen, your AI personal assistant to revolutionize your life." />
+  <meta name="keywords" content="Gen, 404, page not found, personal assistant, productivity, AI" />
+  <meta name="author" content="Gen Team" />
+  <!-- Open Graph for Social Sharing -->
+  <meta property="og:title" content="Gen – Page Not Found" />
+  <meta property="og:description" content="Oops! The page you're looking for doesn't exist. Return to Gen to revolutionize your life with AI." />
+  <meta property="og:image" content="assets/og-image.jpg" />
+  <meta property="og:url" content="https://gen.example.com/404.html" />
+  <meta property="og:type" content="website" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gen – Page Not Found" />
+  <meta name="twitter:description" content="Oops! The page you're looking for doesn't exist. Return to Gen to revolutionize your life with AI." />
+  <meta name="twitter:image" content="assets/og-image.jpg" />
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" />
+  <link rel="preload" href="assets/favicon.ico" as="image" />
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+  <title>Gen – Page Not Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Root Variables */
+    :root {
+      --primary-indigo: #5A67D8;
+      --secondary-purple: #4C51BF;
+      --accent-teal: #38B2AC;
+      --background: #FFFFFF;
+      --section-bg: #F7FAFC;
+      --text-dark: #2D3748;
+      --text-muted: #718096;
+      --border: #E2E8F0;
+      --shadow: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text-dark);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 404 Section */
+    .error-section {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--accent-teal) 100%);
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .error-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/hero-pattern.svg') repeat;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    .error-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+    }
+
+    .error-content h1 {
+      font-size: 6rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #FFFFFF;
+    }
+
+    .error-content h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .error-content p {
+      font-size: 1.2rem;
+      margin-bottom: 32px;
+    }
+
+    .error-content .cta-button {
+      background: #FFFFFF;
+      color: var(--primary-indigo);
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      display: inline-block;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .error-content .cta-button:hover, .error-content .cta-button:focus {
+      background: var(--secondary-purple);
+      color: #FFFFFF;
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      outline: none;
+    }
+
+    .error-search {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .error-search input[type="text"] {
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      width: 300px;
+      max-width: 100%;
+    }
+
+    .error-search button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      background: var(--secondary-purple);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .error-search button:hover, .error-search button:focus {
+      background: var(--primary-indigo);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--accent-teal) 100%);
+      padding: 60px 24px 80px;
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/hero-pattern.svg') repeat;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    footer .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-column a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .footer-column a:hover, .footer-column a:focus {
+      color: var(--secondary-purple);
+      transform: translateX(4px);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      font-size: 1.8rem;
+      color: #FFFFFF;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .footer-social a:hover, .footer-social a:focus {
+      transform: scale(1.2);
+      color: var(--secondary-purple);
+    }
+
+    .footer-newsletter form {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-newsletter input[type="email"] {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.9rem;
+      width: 200px;
+      max-width: 100%;
+    }
+
+    .footer-newsletter button {
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      background: #FFFFFF;
+      color: var(--primary-indigo);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .footer-newsletter button:hover, .footer-newsletter button:focus {
+      background: var(--secondary-purple);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease-in forwards;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .error-section { padding: 60px 24px; }
+      .error-content h1 { font-size: 4rem; }
+      .error-content h2 { font-size: 2rem; }
+      .error-content p { font-size: 1.1rem; }
+      .error-search input[type="text"] { width: 100%; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .error-content h1 { font-size: 3rem; }
+      .error-content h2 { font-size: 1.8rem; }
+      .error-content p { font-size: 1rem; }
+      .cta-button { padding: 12px 24px; font-size: 1rem; }
+      .footer-column h3 { font-size: 1.2rem; }
+      .footer-newsletter input[type="email"] { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 404 Section -->
+  <section class="error-section" aria-labelledby="error-heading">
+    <div class="error-content">
+      <h1 class="fade-in">404</h1>
+      <h2 id="error-heading" class="fade-in">Oops! Page Not Found</h2>
+      <p class="fade-in">The page you’re looking for doesn’t exist or has been moved. Let’s get you back on track!</p>
+      <a href="index.html" class="cta-button fade-in">Return to Home</a>
+      <div class="error-search fade-in">
+        <form onsubmit="handleSearch(event)">
+          <input type="text" placeholder="Search for content..." aria-label="Search Gen" required />
+          <button type="submit"><i class="fas fa-search"></i> Search</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Footer -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column fade-in">
+          <h3>About Gen</h3>
+          <p style="font-size: 0.9rem; color: #FFFFFF;">Revolutionize your life with Gen, your AI personal assistant for productivity and habit transformation.</p>
+        </div>
+        <div class="footer-column fade-in">
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="index.html#how-it-works">How It Works</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#community">Community</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="https://x.ai/api" target="_blank" rel="noopener">API Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-column fade-in">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-column footer-newsletter fade-in">
+          <h3>Stay Connected</h3>
+          <form onsubmit="handleFooterNewsletterSubmit(event)">
+            <input type="email" placeholder="Enter your email" aria-label="Email address for newsletter" required />
+            <button type="submit">Subscribe</button>
+          </form>
+          <div class="footer-social" style="margin-top: 16px;">
+            <a href="https://x.com/gen_app" target="_blank" rel="noopener" aria-label="Follow Gen on X"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://instagram.com/gen_app" target="_blank" rel="noopener" aria-label="Follow Gen on Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com/company/gen_app" target="_blank" rel="noopener" aria-label="Follow Gen on LinkedIn"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom fade-in">
+        <p>© 2025 Gen. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Gen – Page Not Found",
+      "url": "https://gen.example.com/404.html",
+      "description": "The page you’re looking for doesn’t exist. Return to Gen to revolutionize your life with AI.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Gen Team"
+      }
+    }
+  </script>
+
+  <!-- JavaScript -->
+  <script>
+    // Footer Newsletter Submission
+    function handleFooterNewsletterSubmit(event) {
+      event.preventDefault();
+      const email = event.target.querySelector('input[type="email"]').value;
+      alert(`Thank you for subscribing with ${email}!`);
+      event.target.reset();
+    }
+
+    // Search Form Submission (Placeholder)
+    function handleSearch(event) {
+      event.preventDefault();
+      const query = event.target.querySelector('input[type="text"]').value;
+      alert(`Searching for: ${query} (Search functionality coming soon!)`);
+      event.target.reset();
+    }
+
+    // Fade-In Animations
+    const animateElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.2 });
+
+    animateElements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
